@@ -35,5 +35,13 @@ pipeline{
                  sh 'docker push mathys1/jenkins:latest'
              }
          }
-     }
-}    
+   }
+post{
+   failure{
+      emailext body: 'Ce Build $BUILD_NUMBER a échoué',
+      recipientProviders:[requestor()], subject: 'build', to:
+         'mathysbriand2001@gmail.com'
+   }
+ }
+} 
+
